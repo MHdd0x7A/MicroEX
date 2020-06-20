@@ -24,6 +24,8 @@
 [0-9]+ { yylval.val = atof(yytext);	return NUMBER;}
 ([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+) { yylval.val = atof(yytext); return NUMBER;}   //0.9 or .9
 
+":=" {return ASSIGN;}
+
 
 .  {return yytext[0];}
 

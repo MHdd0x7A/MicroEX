@@ -28,13 +28,14 @@ int vsize = 0;
 
 %token PROGRAM BEGINT END 
 %token DECLARE AS 
+%token ASSIGN
 
 %%
 
 Program : 	PROGRAM micro_prog BEGINT stmt_list END 	{ printf("\n**  Done  **\n");}
 	;
 
-micro_prog :	NAME        { printf("\t\tSTART %s\n", $1)}
+micro_prog :	NAME        { printf("\t\tSTART %s\n", $1);}
 	;
 
 stmt_list :	stmt 	
@@ -42,6 +43,7 @@ stmt_list :	stmt
 	;
 
 stmt : 	    vardeclare ';'
+	|		assign ';'
 	;
 
 
@@ -79,6 +81,12 @@ var :	NAME
 		strcpy( varmp[vsize].name, $1);
 		varmp[vsize].size = $3;
 		vsize += 1;
+	}
+	;
+
+assign : NAME ASSIGN NUMBER
+	{
+		printf("\t\tF_STORE %f,%s\n", $3, $1);
 	}
 	;
 %%
